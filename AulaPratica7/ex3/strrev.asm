@@ -1,6 +1,6 @@
 # Sub-rotina strrev
 
-#void exchange(char *c1, char *c2) -> troca a posição de dois registos
+#void exchange(char *c1, char *c2) -> troca a posiÃ§Ã£o de dois registos
 #{
 #	char aux = *c1;
 #
@@ -18,7 +18,7 @@ exchange:
 	jr $ra			# termina o programa
 
 
-#A função strrev() (string reverse) inverte o conteúdo de uma string. 
+#A funÃ§Ã£o strrev() (string reverse) inverte o conteÃºdo de uma string. 
 
 #char *strrev(char *str)
 #{
@@ -37,13 +37,13 @@ exchange:
 #}
 
 #Mapa de registos:
-# str : $a0 -> $s0 (argumento é passado em $a0)
+# str : $a0 -> $s0 (argumento Ã© passado em $a0)
 # p1 : $s1 (registo callee-saved)
 # p2 : $s2 (registo callee-saved)
 
 strrev:
-	addiu $sp, $sp, -16		# reserva espaço na stack
-	sw $ra 0($sp)			# guarda o endereço de retorno $ra
+	addiu $sp, $sp, -16		# reserva espaÃ§o na stack
+	sw $ra 0($sp)			# guarda o endereÃ§o de retorno $ra
 	
 	sw $s0, 4($sp)			# guardar valor de registos
 	sw $s1, 8($sp)			# $s0, $s1, $s2
@@ -66,24 +66,24 @@ endWhile1:
 while2:
 	bge $s1, $s2, endWhile2		# while(p1 < p2) {
 	
-	move $a0, $s1			# $a0 - 1º argumento de exchange
-	move $a1, $s2			# $a1 - 2º argumento de exchange
+	move $a0, $s1			# $a0 - 1Âº argumento de exchange
+	move $a1, $s2			# $a1 - 2Âº argumento de exchange
 	
-	jal exchange			# chamada da função exchange
+	jal exchange			# chamada da funÃ§Ã£o exchange
 	
 	addi $s1, $s1, 1		# p1++;
 	sub $s2, $s2, 1			# p2--;
 	
 	j while2			# }
 	
-endWhiile2:
+endWhile2:
 	move $v0, $s0			# return str
 	
-	lw $ra, 0($sp)			# repôe endereço de retorno
-	lw $s0, 4($sp)			# repôe os valores dos registos
+	lw $ra, 0($sp)			# repÃ´e endereÃ§o de retorno
+	lw $s0, 4($sp)			# repÃ´e os valores dos registos
 	lw $s1, 8($sp)			# $s0, $s1 e $s2
 	lw $s2, 0($sp)
 	
-	addiu $sp, $sp, 16		# liberta o espaço que estava a ser utilizado
+	addiu $sp, $sp, 16		# liberta o espaÃ§o que estava a ser utilizado
 	
 	jr $ra				# termina a sub-rotina
