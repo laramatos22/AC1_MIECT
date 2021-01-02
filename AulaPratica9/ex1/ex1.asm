@@ -8,7 +8,7 @@ x1:	.float 0.0
 	.text
 	.globl main
 
-#Considere o seguinte programa que lê um valor inteiro, multiplica-o por uma constante real
+#Considere o seguinte programa que lÃª um valor inteiro, multiplica-o por uma constante real
 #e apresenta o resultado.
 
 #int main(void)
@@ -39,18 +39,18 @@ do:
 	mtc1 $v0, $f4		# mandar para o coprocessador
 	cvt.s.w $f4, $f4	# conversao -> f4 = (float) f4 
 	
-	l.s $f2, x		# $f2 = x
+	l.s $f2, x		# $f2 = x -> load single from memory
 	mul.s $f0, $f4, $f2	# res = (float)val * 2.59375;
 	
 	li $v0, print_float
-	mov.s $f12, $f0		# mover o resultado para o registo $f12
+	mov.s $f12, $f0		# move (single) -> mover o resultado para o registo $f12
 	syscall			# print_float( res );
 	
-	l.s $f6, x1		# $f6 = x1
+	l.s $f6, x1		# $f6 = x1 -> loas single from memory
 	
-	c.eq.s $f0, $f6		# while(res != 0.0);
+	c.eq.s $f0, $f6		# while(res != 0.0); -> compare single c.X.s
 	
-	bc1f do			# jump para do
+	bc1f do			# jump para do -> branch if false
 	
 endDo:
 	li $v0, 0		# return 0;
