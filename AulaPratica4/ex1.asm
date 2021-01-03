@@ -1,26 +1,26 @@
-# Exercicio 1 alínea a)
+# Exercicio 1 alÃ­nea a)
 
-# O programa lê uma string do teclado, conta o número de caracteres numéricos
-# que ela contém e imprime esse resultado.
+# O programa lÃª uma string do teclado, conta o nÃºmero de caracteres numÃ©ricos
+# que ela contÃ©m e imprime esse resultado.
 
-# Código em C
+# CÃ³digo em C
 
 #define SIZE 20
 #void main (void)
 #{
-#	static char str[SIZE];  // Reserva espaço para um array de
+#	static char str[SIZE];  // Reserva espaÃ§o para um array de
 #				//"SIZE" carateres no segmento de
 #				// dados
 #	int num, i;
 #	
-#	read_string(str, SIZE); // "str" é o endereço inicial do
-#				// espaço reservado para alojar a
-#				// string (na memória externa)
+#	read_string(str, SIZE); // "str" Ã© o endereÃ§o inicial do
+#				// espaÃ§o reservado para alojar a
+#				// string (na memÃ³ria externa)
 #
 #	num = 0;
 #	i = 0;
 #	while( str[i] != '\0' ) // Acede ao carater (byte) na
-#				// posição "i" do array e compara-o
+#				// posiÃ§Ã£o "i" do array e compara-o
 #				// com o carater terminador (i.e.
 #				// '\0' = 0x00)
 #	{
@@ -34,9 +34,9 @@
 # Mapa de registos
 # $t0 - num
 # $t1 - i
-# $t2 - endereço inicial da string (str)
-# $t3 - endereço da posição "i" da string (str+i)
-# $t4 - conteúdo de str[i]
+# $t2 - endereÃ§o inicial da string (str)
+# $t3 - endereÃ§o da posiÃ§Ã£o "i" da string (str+i)
+# $t4 - conteÃºdo de str[i]
 
 	.data
 	.eqv  SIZE, 20			# define SIZE 20
@@ -47,15 +47,15 @@ str:	.space SIZE			# static char str[SIZE]
 	.globl main
 
 main:					# void main (void)
-	la $a0, str			# $a0=&str[0] (endereço da posição
-					# 0 do array, i.e., endereço
+	la $a0, str			# $a0=&str[0] (endereÃ§o da posiÃ§Ã£o
+					# 0 do array, i.e., endereÃ§o
 					# inicial do array)
-	li $a1, SIZE			# §a1 = SIZE
+	li $a1, SIZE			# $a1 = SIZE
 	ori $v0, $0, read_string	# read_strring(str, SIZE)
 	syscall
 	
-	li $t0, 0			# §t0 = num = 0
-	li $t1, 0			# §t1 = i = 0
+	li $t0, 0			# $t0 = num = 0
+	li $t1, 0			# $t1 = i = 0
 	
 while:	
 	la $t2, str
