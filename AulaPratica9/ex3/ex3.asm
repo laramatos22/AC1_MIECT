@@ -12,12 +12,12 @@ a:	.space 80
 	.text
 	.globl main	
 
-#funÁ„o average() -> calcula o valor mÈdio de um array de reais
-# codificados em formato vÌrgula flutuante, precis„o dupla
+#fun√ß√£o average() -> calcula o valor m√©dio de um array de reais
+# codificados em formato v√≠rgula flutuante, precis√£o dupla
 
 average:			# double average(double *array, unsigned int n)
 	la $t0, zero		# $t0 = 0.0
-	l.d $f0, 0($t0)		# precis„o dupla
+	l.d $f0, 0($t0)		# precis√£o dupla
 	move $t0, $a0		# $t0 = array
 	move $t1, $a1		# $t1 = n
 	
@@ -32,7 +32,7 @@ avgFor:
 	j avgFor
 	
 avgEnd:
-	mtc1 $a1, $f4		# mandar oara o coprocessador
+	mtc1 $a1, $f4		# mandar para o coprocessador
 	cvt.d.w $f4, $f4	# conversao de word para double
 	div.d $f12, $f0, $f4	# return soma / (double)n;
 	jr $ra			# fim da subrotina	
@@ -40,7 +40,7 @@ avgEnd:
 #----------------main-------------------#
 	
 main:
-	addiu $sp, $sp, -20		# reserva espaÁo na stack
+	addiu $sp, $sp, -20		# reserva espa√ßo na stack
 	sw $ra, 0($sp)			# guarda o valor de $ra
 	la $t1, a			# $t1 = &a
 	li $t0, 0			# i=0
@@ -63,11 +63,11 @@ for:
 endFor:
 	la $a0, a			# $a0 = a
 	li $a1, SIZE 			# $a1 = SIZE
-	jal average			# chamada ‡ funÁ„o average(a, SIZE)
+	jal average			# chamada √† fun√ß√£o average(a, SIZE)
 	li $v0, print_double
 	syscall				# print_double();
 	
 	lw $ra, 0($sp)
-	addiu $sp, $sp, 20		# liberta o espaÁo da stack
+	addiu $sp, $sp, 20		# liberta o espa√ßo da stack
 	li $v0, 0			# return 0
 	jr $ra				# termina o programa
