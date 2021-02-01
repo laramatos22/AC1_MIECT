@@ -1,0 +1,11 @@
+SUB-ROTINAS TERMINAIS (que não chamam qualquer sub-rotina):
+
+  -> só devem utilizar (preferencialmente) registos que não necessitam de ser salvaguardados ($t0...$t9, $v0...$v1 e $a0...$a3).
+  
+  
+SUB-ROTINAS INTERMÉDIAS (que chamam outras sub-rotinas):
+
+  -> devem utilizar os registos $s0...$s7 para o armazenamento de valores que se pretenda preservar ao longo da execução de toda a sub-rotina. 
+     A utilização destes registos implica a sua prévia salvaguarda na stack logo no início da sub-rotina e a respetiva reposição no final.
+     
+  -> devem utilizar os registos $t0...$t9, $v0...$v1 e $a0...$a3 para os restantes valores
