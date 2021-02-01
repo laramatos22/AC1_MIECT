@@ -1,8 +1,8 @@
 # EXERCICIO 1
 
-# O argumento da função é passado em $a0
-# O resultado é devolvido em $v0
-# Sub-rotina terminal: não devem ser usados registos $sx 
+# O argumento da funÃ§Ã£o Ã© passado em $a0
+# O resultado Ã© devolvido em $v0
+# Sub-rotina terminal: nÃ£o devem ser usados registos $sx 
 
 #int main(void)
 #{
@@ -18,21 +18,23 @@ str:	.asciiz "Arquitetura de Computadores I"
 	.globl main
 	
 main:
-	addiu $sp, $sp, -4	# reserva espaço na stack
+	addiu $sp, $sp, -4	# reserva espaÃ§o na stack 
 	sw $ra, 0($sp)		# guarda o valor de $ra
 	
-	la $a0, str		# $a0 é o argumento de strlen 
-	jal strlen		# chamada da função strlen(str)
-	
-	move $a0, $v0		# $av0 = return de strlen(str)
-	
+				# Antes de chamar, a sub-rotina chamadora:
+				#			-> passa os argumentos; oa 4 primeiros sao passados nos registos $a0...$a3 e os restantes na stack
+				#			-> executa a instruÃ§Ã£o jal
+	la $a0, str		# $a0 Ã© o argumento de strlen 
+	jal strlen		# chamada da funÃ§Ã£o strlen(str)
+				# o valor de retorno situa-se em $v0 e depois Ã© transferido para $a0
+	move $a0, $v0		# $a0 = return de strlen(str)
 	li $v0, print_int10	
 	syscall			# print_int10(strlen(str))
 	
 	li $v0, 0		# return 0;
 	
-	lw $ra, 0($sp)		# liberta o espaço da stack
-	addiu $sp, $sp, 4	# repõe o valor de $ra
+	lw $ra, 0($sp)		# liberta o espaÃ§o da stack
+	addiu $sp, $sp, 4	# repÃµe o valor de $ra
 	
 	jr $ra			# termina o programa
 
@@ -49,17 +51,17 @@ strlen:
 	li $t1, 0		# len = 0;
 
 while:
-	lb $t0, 0($a0)		# load byte - transfere um byte da memória para um registo externo, fazendo
+	lb $t0, 0($a0)		# load byte - transfere um byte da memÃ³ria para um registo externo, fazendo
 				#             uma extensao de sinal do valor lido de 8 para 32 bits
 				#	      $t0 -> registo destino do CPU
-				#	      $a0 -> registo de endereçamento indireto
+				#	      $a0 -> registo de endereÃ§amento indireto
 	addiu $a0, $a0, 1	# $a0 = *s++
 	beq $t0, '\0', endWhile	# while(*s++ != '\0')
 	addi $t1, $t1, 1	# len++;
 	j while
 	
 endWhile:
-	move $v0, $t1		# return len;
+	move $v0, $t1		# return len; -> o valor de retorno Ã© colocado no registo $v0
 	jr $ra			# termina a subrotina
 	
 	
