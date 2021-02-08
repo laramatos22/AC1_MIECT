@@ -32,7 +32,7 @@ fun1:
 	la $t5, x0		# $t5 = &x0 = 0.0
 	la $t6, x1		# $t6 = &x1 = 2.0
 	mtc1.d $t5, $f6		# mandar para o coprocessador para ficar $f6 = x0 = 0.0
-	mtc1.d $t6, $f8		# mandar para o coprocessador para dicar $f8 = x1 = 2.0
+	mtc1.d $t6, $f8		# mandar para o coprocessador para ficar $f8 = x1 = 2.0
 	
 	move $t0, $a1		# $t0 = N
 	move $t1, $a2		# $t1 = b
