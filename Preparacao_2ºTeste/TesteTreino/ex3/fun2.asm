@@ -21,12 +21,12 @@
 	
 fun2:
 	move $t0, $a0			# $t0 = p
-	addiu $sp, $sp, -12		# reserva espaÁo na stack
+	addiu $sp, $sp, -12		# reserva espa√ßo na stack
 	sw $ra, 0($sp)			# salvaguarda o valor de $ra
 	sw $s0, 4($sp)			# guarda o valor dos registos $s0 e $s1
 	sw $s1, 8($sp)
 	
-	lw $s0, 0($t0)			# criaÁ„o do ponteiro -> $s0 = *p
+	lw $s0, 0($t0)			# cria√ß√£o do ponteiro -> $s0 = *p
 	move $s1, $a1			# $s1 = k
 	
 	li $t1, 0			# int n=0;
@@ -34,9 +34,9 @@ fun2:
 while:
 	beq $s0, $s1, endWhile		# while ( *p != k )
 	
-	move $a0, $s0			# 1∫ argumento da funÁ„o funk -> $a0 = *p
-	move $a1, $s1			# 2∫ argumento da funÁ„o funk -> $a1 = k
-	jal funk			# chamada ‡ funÁ„o funk(*p, k)
+	move $a0, $s0			# 1¬∫ argumento da fun√ß√£o funk -> $a0 = *p
+	move $a1, $s1			# 2¬∫ argumento da fun√ß√£o funk -> $a1 = k
+	jal funk			# chamada √† fun√ß√£o funk(*p, k)
 	
 	add $t1, $t1, $v0		# n = n + funk(*p, k);
 	
@@ -47,9 +47,9 @@ while:
 endWhile:
 	move $v0, $t1			# return n;
 	
-	lw $ra, 0($sp)			# repıe o valor de $ra
-	lw $s0, 4($sp)			# repıe os valores de $s0 e $s1
+	lw $ra, 0($sp)			# rep√µe o valor de $ra
+	lw $s0, 4($sp)			# rep√µe os valores de $s0 e $s1
 	lw $s1, 8($sp)	
-	addiu $sp, $sp, 12		# liberta o espaÁo na stack
+	addiu $sp, $sp, 12		# liberta o espa√ßo na stack
 	
-	je $ra				# termina a sub-rotina
+	jr $ra				# termina a sub-rotina
