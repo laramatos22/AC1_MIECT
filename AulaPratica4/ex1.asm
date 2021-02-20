@@ -59,18 +59,18 @@ main:					# void main (void)
 	
 while:	
 	la $t2, str
-	addu $t3, $t2, $t1	#add unsigned 
-	lb $t4,0($t3)		# load Byte lb Rdst, addr
+	addu $t3, $t2, $t1		# add unsigned -> str + i
+	lb $t4,0($t3)			# load Byte lb Rdst, addr -> $t4 = str[i]
 	
-	beq  $t4, '\0', endw
+	beq  $t4, '\0', endw		# while( str[i] != '\0' 
 	
-if: 	blt $t4,'0',endif 	# if(str[i] >= '0' &&
-	bgt $t4,'9',endif 	# str[i] <= '9');
+if: 	blt $t4,'0',endif 		# if(str[i] >= '0' &&
+	bgt $t4,'9',endif 		# str[i] <= '9');
 	addi $t0, $t0, 1 		# num++;
 	
 endif:
-	addi $t1, $t1, 1 	# i++;
-	j    while		# }
+	addi $t1, $t1, 1 		# i++;
+	j    while			# }
 	
 endw: 
 	ori $v0, $0, print_int10	# print_int10(num);
