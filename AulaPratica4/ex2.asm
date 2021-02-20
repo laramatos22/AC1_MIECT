@@ -1,28 +1,28 @@
-# Exercicio 2 alínea a)
+# Exercicio 2 alÃ­nea a)
 
-# utilizar um ponteiro para fazer um código assembly alternativo ao da questão 1
+# utilizar um ponteiro para fazer um cÃ³digo assembly alternativo ao da questÃ£o 1
  
-# Um ponteiro para uma dada posição do array é uma variável (que pode residir num
-# registo interno do CPU) que contém o endereço dessa posição do array
+# Um ponteiro para uma dada posiÃ§Ã£o do array Ã© uma variÃ¡vel (que pode residir num
+# registo interno do CPU) que contÃ©m o endereÃ§o dessa posiÃ§Ã£o do array
 
-# Código em C
+# CÃ³digo em C
 
 #define SIZE 20
 #void main (void)
 #{
-#	static char str[SIZE];	// Reserva espaço para um array de
+#	static char str[SIZE];	// Reserva espaÃ§o para um array de
 #				// "SIZE" carateres no segmento de dados
 #
 #	int num = 0;
 #
 #	char *p; 		// Declara um ponteiro para carater
-#				// (não há qualquer inicialização)
+#				// (nÃ£o hÃ¡ qualquer inicializaÃ§Ã£o)
 #
 #	read_string(str, SIZE); // Le do teclado uma string com um
-#				// máximo de 20 carateres
+#				// mÃ¡ximo de 20 carateres
 #
 #	p = str; 		// Inicializa o ponteiro "p" com o
-#		 		// endereço inicial da string
+#		 		// endereÃ§o inicial da string
 #
 #				// (equivalente a fazer p = &(str[0]))
 #	while( *p != '\0' ) 	// Acede ao byte apontado pelo ponteiro
@@ -32,7 +32,7 @@
 #		if( (*p >= '0') && (*p <= '9') )
 #			num++;
 #		p++; 		// Incrementa o ponteiro (o ponteiro
-#				// passa a ter o endereço da posição
+#				// passa a ter o endereÃ§o da posiÃ§Ã£o
 #				// seguinte do array)
 #	}
 #	print_int10(num);
@@ -44,35 +44,36 @@
 # *p:  $t2
 
 	.data
-	.eqv SIZE, 20		#define SIZE 20
-	.eqv read_string, 8	#read_int(str, SIZE)
-	.eqv print_int10, 1	#print_int10(soma)
+	.eqv SIZE, 20			#define SIZE 20
+	.eqv read_string, 8		#read_int(str, SIZE)
+	.eqv print_int10, 1		#print_int10(soma)
 str:	.space SIZE
 
 	.text
 	.globl main
 	
 main:	
-	li $t0, 0		# num = 0;
-	la $a0, str
-	li $a1, SIZE
-	ori $v0, $0, read_string	 # read_string(str. SIZE);
-	syscall
+	li $t0, 0			# num = 0;
 	
-	la $t1, str
+	la $a0, str			# $a0 = buf
+	li $a1, SIZE			# $a1 = length = SIZE
+	li $v0, read_string		# $v0 = 8 = read_string
+	syscall				# read_string(str, SIZE);
 	
-while: 				# while(*p != '\0')
-	lb $t2,0($t1) 		#
-	beq $t2,0,endw 		# {
-	blt $t2,'0',endif 	# if(str[i] >='0' &&
-	bgt $t2,'9',endif 	# str[i] <= '9')
-	addi $t0, $t0, 1 	# num++;
+	la $t1, str			# p = &str
+	
+while: 					
+	lb $t2,0($t1) 			# *p = str (load byte)
+	beqz $t2, endw			# while( *p != '\0') {
+	blt $t2,'0',endif 		# 	if(str[i] >='0' &&
+	bgt $t2,'9',endif 		# 	str[i] <= '9')
+	addi $t0, $t0, 1 		# 		num++;
 	
 endif:
-	addiu $t1, $t1, 1	# p++;
-	j while			# }
+	addiu $t1, $t1, 1		# 	p++;
+	j while				# }
 
-endw: 	ori $v0, $0, print_int10	# print_int10(num);
+endw: 	li $v0, print_int10		# print_int10(num);
 	or $a0, $0, $t0 
 	syscall
 	
