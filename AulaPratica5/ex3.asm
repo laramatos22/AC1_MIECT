@@ -10,8 +10,8 @@
 # lista + i: $t7
 
 	.data
-str1:	.asciiz "Introduza um número:"
-str2:	.asciiz "\nConteúdo do array: "
+str1:	.asciiz "Introduza um nÃºmero:"
+str2:	.asciiz "\nConteÃºdo do array: "
 str3:	.asciiz "; "
 	.align 2
 lista:	.space 40			# 4 * size
@@ -24,21 +24,21 @@ lista:	.space 40			# 4 * size
 	.text
 	.globl main
 	
-main: 	li $t0, 0			#k = 0
+main: 	li $t0, 0			# k = 0
 
-input:	bge $t0,SIZE,end		#while(k < SIZE)
+input:	bge $t0,SIZE,end		# while(k < SIZE)
 	
-	la $a0, str1			# código para leitura de valores
+	la $a0, str1			# cÃ³digo para leitura de valores
 	li $v0, print_string
-	syscall				#print("introduza um número");
+	syscall				# print("introduza um nÃºmero");
 	li $v0, read_int
-	syscall				#read_int();
+	syscall				# read_int();
 	
-	la $t1, lista			#$t1 = temp_lista
+	la $t1, lista			# $t1 = temp_lista
 	sll $t2, $t0,2
-	addu $t2,$t2,$t1		#$t2 = &temp_lista[k]
-	sw $v0, 0($t2)			#lista[k] = read_int();
-	addi $t0,$t0,1			#k++;
+	addu $t2,$t2,$t1		# $t2 = &temp_lista[k]
+	sw $v0, 0($t2)			# lista[k] = read_int();
+	addi $t0,$t0,1			# k++;
 	j input
 		
 end:	la $t6,lista 			# $t6 = lista (ou &lista[0])
@@ -67,16 +67,20 @@ endfor:	beq $t4,TRUE, do		# } while(houve_troca == TRUE);
 	syscall
 	li $t5,0
 	
-print:	bge $t5, SIZE, endw
-	la $t6, lista
-	sll $t2,$t5,2
+print:	bge $t5, SIZE, endw		
+
+	la $t6, lista			
+	sll $t2,$t5,2			
 	addu $t2,$t2,$t6
 	lw $a0, 0($t2)
+	
 	li $v0, print_int10
 	syscall
+	
 	la $a0, str3
 	li $v0, print_string
 	syscall
+	
 	addi $t5,$t5,1
 	j print
 
