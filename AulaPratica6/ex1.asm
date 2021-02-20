@@ -18,7 +18,7 @@
 # i: $t0
 # SIZE: $t1
 # array: $t2
-# array tempor·rio temp: $t3
+# array tempor√°rio temp: $t3
 
 	.data
 	.eqv SIZE, 3
@@ -32,25 +32,26 @@ array:	.word str1, str2, str3
 	.globl main
 	
 main:	
-	li $t1, SIZE	# $t1=SIZE
-	la $t2, array	
-	li $t0, 0	# i=0;
+	li $t1, SIZE		# $t1=SIZE
+	la $t2, array		# $t2 = &(array[0])
+	li $t0, 0		# i=0;
 
 for:	
-	bge $t0, $t1, endFor
-	sll $t3, $t0, 2		# temp=i*4; OU multi $t3, $t0, 4
-	addu $t3, $t2, $t3	# temp=&array[i]
-	lw $a0, 0($t3)		# temp = $a0 = array[i]
-	li $v0, print_str
+	bge $t0, $t1, endFor	# for(i=0; i < SIZE; i++) {
+	sll $t3, $t0, 2		# temp = i*4; OU multi $t3, $t0, 4
+	addu $t3, $t2, $t3	# temp = &array[i]
+	
+	lw $a0, 0($t3)		# load word -> temp = $a0 = array[i]
+	li $v0, print_str	# $v0, print_string
 	syscall			# print_str(array[i]);
 	
 	li $a0, '\n'
-	li $v0, print_char
+	li $v0, print_char	# $v0 = print_char
 	syscall			# print_char('\n')
 	
 	addi $t0, $t0, 1	# i++	
 	
-	j for			# jump de retorno para o for
+	j for			# jump de retorno para o for }
 	
 endFor:	
 	jr $ra			# terminar programa
